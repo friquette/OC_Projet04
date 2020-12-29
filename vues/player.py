@@ -27,7 +27,7 @@ class Player:
 
     def player_birth(self):
         while True:
-            self.player_birthdate = input("Date de naissance: ")
+            self.player_birthdate = input("Date de naissance (JJ-MM-AAAA): ")
             if birthdate_regex(self.player_birthdate):
                 break
             else:

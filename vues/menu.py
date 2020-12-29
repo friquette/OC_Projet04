@@ -6,7 +6,7 @@ class Menu:
         self.choice = ""
 
     def ask_user_choice(self):
-        print("          MENU          \n")
+        print("          MENU")
         print("1 - Créer un tournoi \n"
               "2 - Mise à jour du classement \n"
               "3 - Rapport \n"
@@ -15,6 +15,7 @@ class Menu:
         while True:
             try:
                 self.choice = int(input("Entrez un chiffre pour accéder à la page désirée: "))
+                print('')
                 self.go_to_page()
             except ValueError:
                 print("Vous n'avez pas entré un chiffre")
@@ -26,7 +27,7 @@ class Menu:
 
     def go_to_page(self):
         if self.choice == 1:
-            print("          Création d'un tournoi          ")
+            print("          Création d'un tournoi")
             tm.display_tournament_creation()
         elif self.choice == 2:
             print("Mettre à jour le classement")

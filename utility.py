@@ -2,7 +2,7 @@ import re
 
 
 def name_regex(name_input):
-    name = re.match(r"^[A-Z][A-Za-z '-]{2,}$", name_input)
+    name = re.match(r"^[A-Z][A-Za-z '-]+$", name_input)
     return name
 
 
