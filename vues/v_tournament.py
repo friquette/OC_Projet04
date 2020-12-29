@@ -1,5 +1,6 @@
 from utility import name_regex, date_regex
 from vues.v_player import ask_player_info
+import controlers.c_tournament as c_tournament
 
 
 class Tournament:
@@ -12,8 +13,11 @@ class Tournament:
         self.time_control = ''
         self.description = ''
 
+        self.c_tournament = c_tournament.ControlTournament()
+
     def ask_tournament_name(self):
         self.name = input("Nom: ")
+        self.c_tournament.save_tournament_name(self.name)
 
     def ask_tournament_location(self):
         while True:
@@ -94,17 +98,22 @@ class Tournament:
         self.description = input("Description: ")
         # TODO: appeler la fonction qui va enregistrer la description saisie par l'utilisateur
 
+    def display_tournament_info(self):
+        r_tournament = self.c_tournament.tournament_info
+        print("Nom du tournoi: {}".format(r_tournament['name']))
+
     def ask_tournament_info(self):
         self.ask_tournament_name()
-        self.ask_tournament_location()
-        self.ask_tournament_date()
-        self.ask_tournament_nb_rounds()
-        self.ask_tournament_nb_players()
-        self.ask_tournament_player_info()
-        self.ask_tournament_time_control()
-        self.ask_tournament_decription()
+        # self.ask_tournament_location()
+        # self.ask_tournament_date()
+        # self.ask_tournament_nb_rounds()
+        # self.ask_tournament_nb_players()
+        # self.ask_tournament_player_info()
+        # self.ask_tournament_time_control()
+        # self.ask_tournament_decription()
 
 
 def display_tournament_creation():
     questions = Tournament()
     questions.ask_tournament_info()
+    questions.display_tournament_info()

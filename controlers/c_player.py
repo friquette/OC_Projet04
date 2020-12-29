@@ -1,7 +1,7 @@
 import models.m_player as m_player
 
 
-class ControlerPlayer:
+class ControlPlayer:
     def __init__(self):
         self.last_name = ''
         self.first_name = ''

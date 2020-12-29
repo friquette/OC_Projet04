@@ -9,7 +9,7 @@ class Player:
         self.player_birthdate = ''
         self.player_rank = 0
 
-        self.c_player = c_player.ControlerPlayer()
+        self.c_player = c_player.ControlPlayer()
 
     def player_name(self):
         while True:
