@@ -27,7 +27,7 @@ class Tournament:
 
     def ask_tournament_date(self):
         while True:
-            self.date = input("Date et heure (JJ-MM-AAAA hh:mm ")
+            self.date = input("Date et heure (JJ-MM-AAAA hh:mm) ")
             if date_regex(self.date):
                 # TODO: appeler la fonction qui va enregistrer la date et l'heure saisies par l'utilisateur
                 break
@@ -55,7 +55,7 @@ class Tournament:
             except ValueError:
                 print("Veuillez entrer un chiffre.")
             else:
-                if self.nb_players <= 2:
+                if self.nb_players < 2:
                     print("Minimum 2 joueurs requis.")
                     continue
                 else:
@@ -99,6 +99,7 @@ class Tournament:
         self.ask_tournament_location()
         self.ask_tournament_date()
         self.ask_tournament_nb_rounds()
+        self.ask_tournament_nb_players()
         self.ask_tournament_player_info()
         self.ask_tournament_time_control()
         self.ask_tournament_decription()
