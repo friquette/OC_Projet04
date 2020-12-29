@@ -1,5 +1,5 @@
 from utility import name_regex, date_regex
-from vues.player import ask_player_info
+from vues.v_player import ask_player_info
 
 
 class Tournament:

@@ -1,4 +1,4 @@
-import vues.tournament as tm
+import vues.v_tournament as tm
 
 
 class Menu:
