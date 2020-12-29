@@ -23,7 +23,7 @@ class Tournament:
         while True:
             self.location = input("Lieu: ")
             if name_regex(self.location):
-                # TODO: appeler la fonction qui va enregistrer le lieu saisi par l'utilisateur
+                self.c_tournament.save_tournament_location(self.location)
                 break
             else:
                 print("Format de nom invalide. Doit commencer par une majuscule et contenir au "
@@ -33,7 +33,7 @@ class Tournament:
         while True:
             self.date = input("Date et heure (JJ-MM-AAAA hh:mm) ")
             if date_regex(self.date):
-                # TODO: appeler la fonction qui va enregistrer la date et l'heure saisies par l'utilisateur
+                self.c_tournament.save_tournament_date(self.date)
                 break
             else:
                 print("Format de date et d'heure invalide (JJ-MM-AAAA hh:mm): ")
@@ -49,7 +49,7 @@ class Tournament:
                     print("Minimum 1 tour requis.")
                     continue
                 else:
-                    # TODO: appeler la fonction qui va enregistrer le nombre de tours saisi par l'utilisateur
+                    self.c_tournament.save_tournament_nb_rounds(self.nb_rounds)
                     break
 
     def ask_tournament_nb_players(self):
@@ -63,13 +63,14 @@ class Tournament:
                     print("Minimum 2 joueurs requis.")
                     continue
                 else:
-                    # TODO: appeler la fonction qui va enregistrer le nombre de joueurs saisi par l'utilisateur
+                    self.c_tournament.save_tournament_nb_players(self.nb_players)
                     break
 
     def ask_tournament_player_info(self):
         for i in range(self.nb_players):
             print("\n           Création du joueur n°{}".format(i+1))
             ask_player_info()
+            # TODO: appeler la fonction qui va enregistrer chaque joueur dans une liste
 
     def ask_tournament_time_control(self):
         print("          Contrôle du temps: ")
@@ -83,34 +84,36 @@ class Tournament:
                 print("Veuillez entrer un chiffre entre 1 et 3.")
             else:
                 if self.time_control == 1:
-                    # TODO: appeler la fonction qui va enregistrer le choix de l'utilisateur
+                    self.c_tournament.save_tournament_time_control("Bullet")
                     break
                 elif self.time_control == 2:
-                    # TODO: appeler la fonction qui va enregistrer le choix de l'utilisateur
+                    self.c_tournament.save_tournament_time_control("Blitz")
                     break
                 elif self.time_control == 3:
-                    # TODO: appeler la fonction qui va enregistrer le choix de l'utilisateur
+                    self.c_tournament.save_tournament_time_control("Coup rapide")
                     break
                 else:
                     print("Veuillez entrer un chiffre entre 1 et 3.")
 
     def ask_tournament_decription(self):
         self.description = input("Description: ")
-        # TODO: appeler la fonction qui va enregistrer la description saisie par l'utilisateur
+        self.c_tournament.save_tournament_description(self.description)
 
     def display_tournament_info(self):
         r_tournament = self.c_tournament.tournament_info
-        print("Nom du tournoi: {}".format(r_tournament['name']))
+        """for k, v in r_tournament.items():
+            print("{0}: {1}".format(k, v))"""
+        print(r_tournament)
 
     def ask_tournament_info(self):
         self.ask_tournament_name()
-        # self.ask_tournament_location()
-        # self.ask_tournament_date()
-        # self.ask_tournament_nb_rounds()
-        # self.ask_tournament_nb_players()
+        self.ask_tournament_location()
+        self.ask_tournament_date()
+        self.ask_tournament_nb_rounds()
+        self.ask_tournament_nb_players()
         # self.ask_tournament_player_info()
-        # self.ask_tournament_time_control()
-        # self.ask_tournament_decription()
+        self.ask_tournament_time_control()
+        self.ask_tournament_decription()
 
 
 def display_tournament_creation():

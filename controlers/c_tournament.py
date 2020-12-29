@@ -13,7 +13,7 @@ class ControlTournament:
         self.description = ''
 
         self.m_tournament = m_tournament.ModelTournament(self.name, self.location, self.date,
-                                                         self.nb_rounds, self.players,
+                                                         self.nb_rounds, self.nb_players,
                                                          self.time_control, self.description)
 
         self.tournament_info = self.m_tournament.dict_tournament
