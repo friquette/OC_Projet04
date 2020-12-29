@@ -1,4 +1,5 @@
 import models.m_tournament as m_tournament
+import controlers.c_player as c_player
 
 
 class ControlTournament:
@@ -17,6 +18,7 @@ class ControlTournament:
                                                          self.time_control, self.description)
 
         self.tournament_info = self.m_tournament.dict_tournament
+        self.c_player = c_player.ControlPlayer()
 
     def save_tournament_name(self, name):
         self.tournament_info['name'] = name
@@ -33,8 +35,8 @@ class ControlTournament:
     def save_tournament_nb_players(self, nb_players):
         self.tournament_info['nb_players'] = nb_players
 
-    def save_tournament_players(self, players):
-        self.tournament_info['players'] = players
+    def save_tournament_players(self):
+        self.tournament_info['players'].append(self.c_player.player_info)
 
     def save_tournament_time_control(self, time_control):
         self.tournament_info['time_control'] = time_control

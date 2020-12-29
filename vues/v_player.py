@@ -1,5 +1,6 @@
 from utility import name_regex, birthdate_regex
 import controlers.c_player as c_player
+import controlers.c_tournament as c_tournament
 
 
 class Player:
@@ -10,6 +11,7 @@ class Player:
         self.player_rank = 0
 
         self.c_player = c_player.ControlPlayer()
+        self.c_tournament = c_tournament.ControlTournament()
 
     def player_name(self):
         while True:
@@ -53,6 +55,9 @@ class Player:
                     self.c_player.save_rank(self.player_rank)
                     break
 
+    def player_info(self):
+        self.c_tournament.save_tournament_players()
+
     def display_player_info(self):
         r_player = self.c_player.player_info
         print(r_player)
@@ -61,11 +66,16 @@ class Player:
                                                                        r_player['birthdate'],
                                                                        r_player['rank']))
 
+    def ask_p_info(self):
+        self.player_name()
+        self.player_birth()
+        self.player_rank_input()
+
 
 def ask_player_info():
     player = Player()
     player.player_name()
     player.player_birth()
     player.player_rank_input()
-    player.display_player_info()
+    # player.display_player_info()
 

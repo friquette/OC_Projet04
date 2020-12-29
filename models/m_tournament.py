@@ -14,5 +14,6 @@ class ModelTournament:
                                 'date': self.date,
                                 'nb_rounds': self.nb_rounds,
                                 'nb_players': self.nb_players,
+                                'players': self.players,
                                 'time_control': self.time_control,
                                 'description': self.description}

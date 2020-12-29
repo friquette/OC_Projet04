@@ -1,6 +1,7 @@
 from utility import name_regex, date_regex
-from vues.v_player import ask_player_info
+import vues.v_player as v_player
 import controlers.c_tournament as c_tournament
+import controlers.c_player as c_player
 
 
 class Tournament:
@@ -14,6 +15,8 @@ class Tournament:
         self.description = ''
 
         self.c_tournament = c_tournament.ControlTournament()
+        self.v_player = v_player.Player()
+        self.c_player = c_player.ControlPlayer()
 
     def ask_tournament_name(self):
         self.name = input("Nom: ")
@@ -67,10 +70,10 @@ class Tournament:
                     break
 
     def ask_tournament_player_info(self):
-        for i in range(self.nb_players):
+        """for i in range(self.nb_players):
             print("\n           Création du joueur n°{}".format(i+1))
-            ask_player_info()
-            # TODO: appeler la fonction qui va enregistrer chaque joueur dans une liste
+            self.v_player.ask_p_info()"""
+        self.v_player.ask_p_info()
 
     def ask_tournament_time_control(self):
         print("          Contrôle du temps: ")
@@ -101,19 +104,21 @@ class Tournament:
 
     def display_tournament_info(self):
         r_tournament = self.c_tournament.tournament_info
-        """for k, v in r_tournament.items():
-            print("{0}: {1}".format(k, v))"""
         print(r_tournament)
 
     def ask_tournament_info(self):
-        self.ask_tournament_name()
-        self.ask_tournament_location()
-        self.ask_tournament_date()
-        self.ask_tournament_nb_rounds()
+        # self.ask_tournament_name()
+        # self.ask_tournament_location()
+        # self.ask_tournament_date()
+        # self.ask_tournament_nb_rounds()
         self.ask_tournament_nb_players()
-        # self.ask_tournament_player_info()
-        self.ask_tournament_time_control()
-        self.ask_tournament_decription()
+        for i in range(self.nb_players):
+            self.ask_tournament_player_info()
+            self.c_tournament.save_tournament_players()
+
+        # self.v_player.display_player_info()
+        # self.ask_tournament_time_control()
+        # self.ask_tournament_decription()
 
 
 def display_tournament_creation():
