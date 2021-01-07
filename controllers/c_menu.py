@@ -1,20 +1,20 @@
-import utility as utl
+import views.v_player as v_player
 import views.v_menu as v_menu
 
 
 class MenuController:
     def __init__(self):
-        self.menu_choices = ["Créer un tournoi", "Mettre à jour les classements",
-                             "Afficher le rapport", "Quitter"]
-        self.utils = utl.Utils()
-        self.menu = v_menu.MenuView()
-        self.user_choice = None
+        self.v_player = v_player.PlayerView()
 
-    # créer la liste des choix possibles
-    def choices(self):
-        self.user_choice = self.utils.ask_choices(self.menu_choices)
-        self.menu.get_user_choice(self.user_choice)
+    def redirect_to_player_creation(self):
+        self.v_player.display_player_questions()
 
-    # récupérer le choix de l'utilisateur
-    def get_user_choice(self):
-        pass
+    def get_user_choice(self, user_choice):
+        if user_choice == 1:
+            self.v_player.display_player_questions()
+        elif user_choice == 2:
+            print("afficher le classement")
+        elif user_choice == 3:
+            print("afficher le rapport")
+        else:
+            print("Fermeture du programme")

@@ -18,20 +18,20 @@ class Utils:
                 else:
                     print("Format non valide. 2 Caractères minimum. Les chiffres ne sont pas autorisés")
 
-    def ask_date(self, user_input: str) -> date:
+    def ask_date(self, user_input: str, choice_date: bool) -> date:
         while True:
             try:
                 self.u_input = input(user_input)
             except ValueError:
                 print("Format de date non valide.")
             else:
-                if re.match(r"^(\d{4})-(\d{2})-(\d{2})$", self.u_input):
+                if re.match(r"^(\d{4})-(\d{2})-(\d{2})$", self.u_input) and choice_date:
                     try:
                         d_date = date.fromisoformat(self.u_input)
                         return d_date
                     except ValueError as error:
                         print("Date non valide:", error)
-                elif re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", self.u_input):
+                elif re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", self.u_input) and not choice_date:
                     try:
                         d_datetime = datetime.fromisoformat(self.u_input)
                         return d_datetime
@@ -45,7 +45,7 @@ class Utils:
             for i, choice in enumerate(choices):
                 print("{0} - {1}".format(i+1, choice))
             try:
-                self.u_input = int(input("Entrez le chiffre de votre choix: "))
+                self.u_input = int(input("Entrez le chiffre de votre choix:"))
             except ValueError:
                 print("Veuillez entrer un chiffre.")
             else:

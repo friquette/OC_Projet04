@@ -6,6 +6,7 @@ class PlayerView:
         self.c_player = c_player.PlayerController()
 
     def display_player_questions(self):
+        print("~~~~~~~~~~Création d'un joueur~~~~~~~~~~")
         self.c_player.get_player_info()
         print("Joueur: {} {}, né le {}. Classement: {}".format(self.c_player.first_name,
                                                                self.c_player.last_name,
