@@ -1,9 +1,21 @@
+""" This module contains the model of a player."""
 import re
 from typing import Union
 from datetime import date
 
 
 class ModelPlayer:
+    """ Class of a model player
+
+    Initiate various private variables and store information with a setter to protect the access
+    to these variables.
+    Parameters:
+    last_name -- the last name of the player. Type str.
+    first_name -- the first name of the player. Type str.
+    birthdate -- the birthdate of the player. Type str or date.
+    rank -- ranking of the player. Type int.
+
+    """
     def __init__(self, last_name: str, first_name: str, birthdate: Union[str, date], rank: int):
         incorrect_values = set()
 
