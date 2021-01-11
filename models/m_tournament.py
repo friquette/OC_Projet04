@@ -15,7 +15,7 @@ class TournamentModel:
     tournament_date -- the date the tournament takes place. Type str or datetime
     nb_round -- the tournament number of rounds. Type int.
     rounds -- list of the instances of the rounds. Type list.
-    players -- list of the IDs of the players in the tournament. Type list.
+    players -- list of players in the tournament. Type list.
     time_rule -- rule of the tournament time control (bullet, blitz, fast move). Type str.
     description -- description of the tournament. Type str.
 

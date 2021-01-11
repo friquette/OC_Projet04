@@ -23,15 +23,11 @@ class Utils:
 
         """
         while True:
-            try:
-                self.u_input = input(user_input)
-            except ValueError:
-                print("Format non valide.")
+            self.u_input = input(user_input)
+            if re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", self.u_input):
+                return self.u_input
             else:
-                if re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", self.u_input):
-                    return self.u_input
-                else:
-                    print("Format non valide. 2 Caractères minimum. Les chiffres ne sont pas autorisés")
+                print("Format non valide. 2 Caractères minimum. Les chiffres ne sont pas autorisés")
 
     def ask_date(self, user_input: str, choice_date: bool) -> date:
         """ Gets an input and return it if it matches the regex and the bool value.
@@ -48,25 +44,15 @@ class Utils:
 
         """
         while True:
-            try:
-                self.u_input = input(user_input)
-            except ValueError:
-                print("Format de date non valide.")
+            self.u_input = input(user_input)
+            if re.match(r"^(\d{4})-(\d{2})-(\d{2})$", self.u_input) and choice_date:
+                d_date = date.fromisoformat(self.u_input)
+                return d_date
+            elif re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", self.u_input) and not choice_date:
+                d_datetime = datetime.fromisoformat(self.u_input)
+                return d_datetime
             else:
-                if re.match(r"^(\d{4})-(\d{2})-(\d{2})$", self.u_input) and choice_date:
-                    try:
-                        d_date = date.fromisoformat(self.u_input)
-                        return d_date
-                    except ValueError as error:
-                        print("Date non valide:", error)
-                elif re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", self.u_input) and not choice_date:
-                    try:
-                        d_datetime = datetime.fromisoformat(self.u_input)
-                        return d_datetime
-                    except ValueError as error:
-                        print("Date non valide:", error)
-                else:
-                    print("Format de date non valide.")
+                print("Format de date non valide.")
 
     def ask_choices(self, choices: list) -> int:
         """ Gets a list and print all the elements of the list.
@@ -81,7 +67,7 @@ class Utils:
         """
         while True:
             for i, choice in enumerate(choices):
-                print("{0} - {1}".format(i+1, choice))
+                print(f"{i+1} - {choice}")
             try:
                 self.u_input = int(input("Entrez le chiffre de votre choix:"))
             except ValueError:

@@ -1,5 +1,6 @@
 """ This module contains the view of the player."""
 import controllers.c_player as c_player
+import utility as utls
 
 
 class PlayerView:
@@ -10,6 +11,12 @@ class PlayerView:
     """
     def __init__(self):
         self.c_player = c_player.PlayerController()
+        self.utils = utls.Utils()
+
+        self.last_name = None
+        self.first_name = None
+        self.birthdate = None
+        self.rank = None
 
     def display_player_questions(self):
         """ Display the creation player functionality.
@@ -19,8 +26,10 @@ class PlayerView:
 
         """
         print("~~~~~~~~~~Création d'un joueur~~~~~~~~~~")
-        self.c_player.get_player_info()
-        print("Joueur: {} {}, né le {}. Classement: {}".format(self.c_player.first_name,
-                                                               self.c_player.last_name,
-                                                               self.c_player.birthdate,
-                                                               self.c_player.rank))
+        self.last_name = self.utils.ask_pattern("Nom: ")
+        self.first_name = self.utils.ask_pattern("Prenom: ")
+        self.birthdate = self.utils.ask_date("Date de naissance (AAAA-MM-JJ): ", True)
+        self.rank = self.utils.ask_int("Classement: ")
+
+        print(f"""Joueur: {self.last_name} {self.first_name}, né le {self.birthdate}.
+              Classement: {self.rank}""")

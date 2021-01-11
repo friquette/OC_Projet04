@@ -46,6 +46,10 @@ class ModelPlayer:
     def last_name(self) -> str:
         return self.__last_name
 
+    @property
+    def last_name_pod(self) -> str:
+        return self.__last_name
+
     @last_name.setter
     def last_name(self, value: str):
         if type(value) == str and re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", value):
@@ -57,6 +61,10 @@ class ModelPlayer:
     def first_name(self) -> str:
         return self.__first_name
 
+    @property
+    def first_name_pod(self) -> str:
+        return self.__first_name
+
     @first_name.setter
     def first_name(self, value: str):
         if type(value) == str and re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", value):
@@ -65,8 +73,12 @@ class ModelPlayer:
             raise ValueError()
 
     @property
-    def birthdate(self) -> str:
+    def birthdate(self) -> date:
         return self.__birthdate
+
+    @property
+    def birthdate_pod(self) -> str:
+        return self.__birthdate.isoformat()
 
     @birthdate.setter
     def birthdate(self, value: Union[str, date]):
@@ -81,6 +93,10 @@ class ModelPlayer:
     @property
     def rank(self) -> int:
         return self.__rank
+
+    @property
+    def rank_pod(self) -> str:
+        return str(self.__rank)
 
     @rank.setter
     def rank(self, value: int):
