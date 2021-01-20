@@ -3,8 +3,10 @@ import re
 from typing import Union
 from datetime import date
 
+from serializable import Serializable
 
-class ModelPlayer:
+
+class Player(Serializable):
     """ Class of a model player
 
     Initiate various private variables and store information with a setter to protect the access
@@ -16,38 +18,12 @@ class ModelPlayer:
     rank -- ranking of the player. Type int.
 
     """
-    def __init__(self, last_name: str, first_name: str, birthdate: Union[str, date], rank: int):
-        incorrect_values = set()
-
-        try:
-            self.last_name = last_name
-        except ValueError:
-            incorrect_values.add("nom")
-
-        try:
-            self.first_name = first_name
-        except ValueError:
-            incorrect_values.add("prénom")
-
-        try:
-            self.birthdate = birthdate
-        except ValueError:
-            incorrect_values.add("date de naissance")
-
-        try:
-            self.rank = rank
-        except ValueError:
-            incorrect_values.add("classement")
-
-        if incorrect_values:
-            raise ValueError(f"Paramètres de model player incorrects: {incorrect_values}")
+    def __init__(self, **params):
+        self.property_list = ['last_name', 'first_name', 'birthdate', 'gender', 'rank']
+        super().__init__(self.property_list, **params)
 
     @property
     def last_name(self) -> str:
-        return self.__last_name
-
-    @property
-    def last_name_pod(self) -> str:
         return self.__last_name
 
     @last_name.setter
@@ -59,10 +35,6 @@ class ModelPlayer:
 
     @property
     def first_name(self) -> str:
-        return self.__first_name
-
-    @property
-    def first_name_pod(self) -> str:
         return self.__first_name
 
     @first_name.setter
@@ -93,10 +65,6 @@ class ModelPlayer:
     @property
     def rank(self) -> int:
         return self.__rank
-
-    @property
-    def rank_pod(self) -> str:
-        return str(self.__rank)
 
     @rank.setter
     def rank(self, value: int):

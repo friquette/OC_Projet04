@@ -1,6 +1,6 @@
 """ This module contains the controller of the player."""
 import utility as utls
-import models.m_player as m_player
+import models.player as m_player
 
 
 class PlayerController:
@@ -27,5 +27,5 @@ class PlayerController:
 
         """
 
-        self.m_player = m_player.ModelPlayer(self.last_name, self.first_name, self.birthdate,
-                                             self.rank)
+        self.m_player = m_player.Player(self.last_name, self.first_name, self.birthdate,
+                                        self.rank)

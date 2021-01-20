@@ -1,10 +1,13 @@
 """ This module contains the model of a tournament."""
 import re
-from typing import Union
+from typing import Union, List
 from datetime import datetime
 
+from serializable import Serializable
+from models.player import Player
 
-class TournamentModel:
+
+class Tournament(Serializable):
     """ Class of a model player
 
     Initiate various private variables and store information with a setter to protect the access
@@ -20,52 +23,9 @@ class TournamentModel:
     description -- description of the tournament. Type str.
 
     """
-    def __init__(self, name: str, location: str, tournament_date: Union[str, datetime], nb_round: int,
-                 rounds: list, players: list, time_rule: str, description: str):
-        incorrect_values = set()
-
-        try:
-            self.name = name
-        except ValueError:
-            incorrect_values.add("nom")
-
-        try:
-            self.location = location
-        except ValueError:
-            incorrect_values.add("lieu")
-
-        try:
-            self.tournament_date = tournament_date
-        except ValueError:
-            incorrect_values.add("date")
-
-        try:
-            self.nb_round = nb_round
-        except ValueError:
-            incorrect_values.add("nombre de tours")
-
-        try:
-            self.rounds = rounds
-        except ValueError:
-            incorrect_values.add("liste des instanes rondes")
-
-        try:
-            self.players = players
-        except ValueError:
-            incorrect_values.add("liste des instances de joueur")
-
-        try:
-            self.time_rule = time_rule
-        except ValueError:
-            incorrect_values.add("contrôle du temps")
-
-        try:
-            self.description = description
-        except ValueError:
-            incorrect_values.add("description")
-
-        if incorrect_values:
-            raise ValueError(f"Paramètres de model tournoi incorrects: {incorrect_values}")
+    def __init__(self, **params):
+        self.property_list = ['name', 'location', 'tournament_date', 'nb_round', 'rounds', 'players', 'time_rule', 'description']
+        super().__init__(self.property_list, **params)
 
     @property
     def name(self) -> str:
@@ -90,8 +50,12 @@ class TournamentModel:
             raise ValueError()
 
     @property
-    def tournament_date(self) -> str:
+    def tournament_date(self) -> datetime:
         return self.__tournament_date
+
+    @property
+    def tournament_date_pod(self) -> str:
+        return self.__tournament_date.isoformat()
 
     @tournament_date.setter
     def tournament_date(self, value: Union[str, datetime]):
@@ -130,7 +94,7 @@ class TournamentModel:
         return self.__players
 
     @players.setter
-    def players(self, value: list):
+    def players(self, value: List[Player]):
         if type(value) == list:
             self.__players = value
         else:

@@ -74,7 +74,7 @@ class Utils:
                 print("Veuillez entrer un chiffre.")
             else:
                 if 1 <= self.u_input <= len(choices):
-                    return self.u_input
+                    return choices[self.u_input-1]
                 else:
                     print("Cette option n'existe pas.\n")
 
