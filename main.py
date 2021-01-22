@@ -1,3 +1,4 @@
+"""Module for testing purposes"""
 import utility as utils
 from uuid import uuid4
 
@@ -60,7 +61,7 @@ class CreatePlayer:
         self.t_time_rule = self.utils.ask_choices(['bullet', 'rapid', 'normal'])
         self.t_description = self.utils.ask_pattern('Description: ')
 
-        self.t_players = [self.player.params]
+        self.t_players = [self.players]
 
         self.tournament_params = {'name': self.t_name, 'location': self.t_location, 'tournament_date': self.t_date,
                                   'nb_round': self.t_nb_round, 'rounds': self.t_rounds, 'players': self.t_players,
@@ -73,4 +74,4 @@ class CreatePlayer:
 create_player = CreatePlayer()
 create_player.display_player_creation()
 print(create_player.players)
-# create_player.display_tournament_creation()
+create_player.display_tournament_creation()

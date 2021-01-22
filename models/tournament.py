@@ -4,23 +4,15 @@ from typing import Union, List
 from datetime import datetime
 
 from serializable import Serializable
-from models.player import Player
 
 
 class Tournament(Serializable):
-    """ Class of a model player
+    """ Class of a model tournament
 
-    Initiate various private variables and store information with a setter to protect the access
-    to these variables.
+    Daughter of the Serializable class. Initiate a list of property to serialize. Property and
+    Setter decorators for each property to prevent the user from directly accessing the variables.
     Parameters:
-    name -- the name of the tournament. Type str.
-    location -- the location of the tournament. Type str.
-    tournament_date -- the date the tournament takes place. Type str or datetime
-    nb_round -- the tournament number of rounds. Type int.
-    rounds -- list of the instances of the rounds. Type list.
-    players -- list of players in the tournament. Type list.
-    time_rule -- rule of the tournament time control (bullet, blitz, fast move). Type str.
-    description -- description of the tournament. Type str.
+    **params -- dict containing the information of a tournament.
 
     """
     def __init__(self, **params):
@@ -94,7 +86,7 @@ class Tournament(Serializable):
         return self.__players
 
     @players.setter
-    def players(self, value: List[Player]):
+    def players(self, value: List):
         if type(value) == list:
             self.__players = value
         else:

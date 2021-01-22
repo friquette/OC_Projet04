@@ -1,8 +1,17 @@
+"""This module contains the model of a match"""
 from models.player import Player
 from serializable import Serializable
 
 
 class Match(Serializable):
+    """ Class of a model match
+
+        Daughter of the Serializable class. Initiate a list of property to serialize. Property and
+        Setter decorators for each property to prevent the user from directly accessing the variables.
+        Parameters:
+        **params -- dict containing the information of a match.
+
+        """
     def __init__(self, **params):
         self.property_list = ['player_01', 'player_02', 'player_01_score', 'player_02_score']
         super().__init__(self.property_list, **params)

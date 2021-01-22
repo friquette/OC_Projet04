@@ -10,13 +10,10 @@ from serializable import Serializable
 class Player(Serializable):
     """ Class of a model player
 
-    Initiate various private variables and store information with a setter to protect the access
-    to these variables.
+    Daughter of the Serializable class. Initiate a list of property to serialize. Property and
+    Setter decorators for each property to prevent the user from directly accessing the variables.
     Parameters:
-    last_name -- the last name of the player. Type str.
-    first_name -- the first name of the player. Type str.
-    birthdate -- the birthdate of the player. Type str or date.
-    rank -- ranking of the player. Type int.
+    **params -- dict containing the information of a player
 
     """
     def __init__(self, **params):
