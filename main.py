@@ -2,9 +2,9 @@
 import utility as utils
 from uuid import uuid4
 
-import models.player as player
 import models.tournament as tournament
-from player_manager import PlayerManager
+from player_manager import player_manager
+from models.player import Gender, Player
 
 
 class CreatePlayer:
@@ -16,8 +16,6 @@ class CreatePlayer:
         self.gender = None
         self.rank = None
         self.player_params = None
-        self.players = {}
-        self.player_manager = None
 
         self.t_name = None
         self.t_location = None
@@ -34,24 +32,17 @@ class CreatePlayer:
         self.utils = utils.Utils()
 
     def display_player_creation(self):
-        for i in range(2):
-            self.player_id = str(uuid4())
-            self.last_name = self.utils.ask_pattern('Nom: ')
-            self.first_name = self.utils.ask_pattern('Prénom: ')
-            self.birthdate = self.utils.ask_date('Date de naissance: ', True)
-            print("Genre: ")
-            self.gender = self.utils.ask_choices(['Homme', 'Femme'])
-            self.rank = self.utils.ask_int('Classement: ')
-            self.player_params = {'last_name': self.last_name, 'first_name': self.first_name,
-                                  'birthdate': self.birthdate, 'gender': self.gender, 'rank': self.rank}
+        self.player_id = uuid4()
+        self.last_name = self.utils.ask_pattern('Nom: ')
+        self.first_name = self.utils.ask_pattern('Prénom: ')
+        self.birthdate = self.utils.ask_date('Date de naissance: ', True)
+        print("Genre: ")
+        self.gender = self.utils.ask_choices(list(Gender))
+        self.rank = self.utils.ask_int('Classement: ')
+        self.player_params = {'identifier': self.player_id, 'last_name': self.last_name, 'first_name': self.first_name,
+                              'birthdate': self.birthdate, 'gender': self.gender, 'rank': self.rank}
 
-            self.player = player.Player(**self.player_params)
-            self.player.serialize()
-
-            self.player_manager = PlayerManager(self.players, self.player_id, self.player.params)
-            self.player_manager.player_verification()
-            self.player_id = self.player_manager.id_verification()
-            self.players[self.player_id] = self.player.params
+        player_manager.create_player(self.player_params)
 
     def display_tournament_creation(self):
         self.t_name = self.utils.ask_pattern('Nom: ')
@@ -60,8 +51,9 @@ class CreatePlayer:
         self.t_nb_round = self.utils.ask_int('Nombre de round: ')
         self.t_time_rule = self.utils.ask_choices(['bullet', 'rapid', 'normal'])
         self.t_description = self.utils.ask_pattern('Description: ')
-
-        self.t_players = [self.players]
+        for i in range(8):
+            # TODO: demander les id des players jusqu'à ce qu'il y en ai 8 de valide
+            pass
 
         self.tournament_params = {'name': self.t_name, 'location': self.t_location, 'tournament_date': self.t_date,
                                   'nb_round': self.t_nb_round, 'rounds': self.t_rounds, 'players': self.t_players,
@@ -72,6 +64,7 @@ class CreatePlayer:
 
 
 create_player = CreatePlayer()
-create_player.display_player_creation()
-print(create_player.players)
-create_player.display_tournament_creation()
+for i in range(1):
+    create_player.display_player_creation()
+print(player_manager.players)
+# create_player.display_tournament_creation()

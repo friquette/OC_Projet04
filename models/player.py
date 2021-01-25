@@ -2,9 +2,18 @@
 import re
 from typing import Union
 from datetime import date
-import uuid
+from uuid import UUID
+from enum import Enum
 
 from serializable import Serializable
+
+
+class Gender(Enum):
+    HOMME = 1
+    FEMME = 2
+
+    def __str__(self):
+        return self.name
 
 
 class Player(Serializable):
@@ -17,8 +26,27 @@ class Player(Serializable):
 
     """
     def __init__(self, **params):
-        self.property_list = ['last_name', 'first_name', 'birthdate', 'gender', 'rank']
+        self.property_list = ['identifier', 'last_name', 'first_name', 'birthdate', 'gender', 'rank']
         super().__init__(self.property_list, **params)
+
+
+    @property
+    def identifier(self) -> UUID:
+        return self.__identifier
+
+    @property
+    def identifier_pod(self) -> str:
+        return str(self.identifier)
+
+    @identifier.setter
+    def identifier(self, value: Union[UUID, str] = None):
+        if type(value) == str and re.match(r"^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$"):
+            self.__identifier = UUID(value)
+        elif type(value) == UUID:
+            self.__identifier = value
+        else:
+            raise ValueError()
+
 
     @property
     def last_name(self) -> str:
@@ -48,7 +76,7 @@ class Player(Serializable):
 
     @property
     def birthdate_pod(self) -> str:
-        return self.__birthdate.isoformat()
+        return self.birthdate.isoformat()
 
     @birthdate.setter
     def birthdate(self, value: Union[str, date]):
@@ -57,6 +85,25 @@ class Player(Serializable):
             self.__birthdate = value
         elif type(value) == date:
             self.__birthdate = value
+        else:
+            raise ValueError()
+
+    @property
+    def gender(self) -> Gender:
+        return self.__gender
+
+    @property
+    def gender_pod(self) -> str:
+        return str(self.gender)
+
+    @gender.setter
+    def gender(self, value: Union[Gender, str]):
+        if type(value) == str and re.match(r"HOMME", value):
+            self.__gender = Gender[value]
+        elif type(value) == str and re.match(r"FEMME", value):
+            self.__gender = Gender[value]
+        elif type(value) == Gender:
+            self.__gender = value
         else:
             raise ValueError()
 

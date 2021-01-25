@@ -1,5 +1,7 @@
 """This module contains the management of the players"""
-from uuid import uuid4
+from uuid import UUID
+
+from models.player import Player
 
 
 class PlayerManager:
@@ -15,19 +17,17 @@ class PlayerManager:
 
     """
 
-    def __init__(self, players: dict, current_id: str, current_player: dict):
-        self.players = players
-        self.current_id = current_id
-        self.current_player = current_player
+    def __init__(self):
+        self.players = {}
 
-    def id_verification(self) -> str:
-        while True:
-            if self.current_id not in self.players:
-                return self.current_id
-            else:
-                self.current_id = str(uuid4())
-                continue
+    def create_player(self, params):
+        player = Player(**params)
+        self.players[player.identifier_pod] = player.params
 
-    def player_verification(self):
-        if self.current_player in self.players.values():
-            raise ValueError("Joueur déjà présent dans la base de données")
+    def find_player_by_id(self, id_player: UUID) -> str:
+        for player_id in self.players:
+            if player_id == id_player:
+                return self.players[player_id]
+
+
+player_manager = PlayerManager()
