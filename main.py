@@ -1,22 +1,15 @@
 """Module for testing purposes"""
 import utility as utils
-from uuid import uuid4
 
 import models.tournament as tournament
 from player_manager import player_manager
-from models.player import Gender, Player
+from views.v_player import player_creation
+from views.v_menu import MenuView
 
 
-class CreatePlayer:
+class Controller:
     def __init__(self):
         self.player_id = None
-        self.last_name = None
-        self.first_name = None
-        self.birthdate = None
-        self.gender = None
-        self.rank = None
-        self.player_params = None
-
         self.t_name = None
         self.t_location = None
         self.t_date = None
@@ -27,22 +20,28 @@ class CreatePlayer:
         self.t_description = None
         self.tournament_params = None
 
-        self.player = None
         self.tournament = None
         self.utils = utils.Utils()
+        self.menu = MenuView()
+        self.player_creation = player_creation
 
-    def display_player_creation(self):
-        self.player_id = uuid4()
-        self.last_name = self.utils.ask_pattern('Nom: ')
-        self.first_name = self.utils.ask_pattern('Prénom: ')
-        self.birthdate = self.utils.ask_date('Date de naissance: ', True)
-        print("Genre: ")
-        self.gender = self.utils.ask_choices(list(Gender))
-        self.rank = self.utils.ask_int('Classement: ')
-        self.player_params = {'identifier': self.player_id, 'last_name': self.last_name, 'first_name': self.first_name,
-                              'birthdate': self.birthdate, 'gender': self.gender, 'rank': self.rank}
-
-        player_manager.create_player(self.player_params)
+    def get_user_choice(self):
+        while True:
+            self.menu.display_menu()
+            if self.menu.user_choice == self.menu.menu_choices[0]:
+                while True:
+                    self.player_creation.display_player_creation()
+                    if self.player_creation.redo != self.player_creation.redo_choices[0]:
+                        print(self.player_creation.players)
+                        break
+            elif self.menu.user_choice == self.menu.menu_choices[2]:
+                while True:
+                    self.player_creation.display_player_by_id()
+                    if self.player_creation.redo != self.player_creation.redo_choices[0]:
+                        break
+            else:
+                print('fermeture du programme')
+                break
 
     def display_tournament_creation(self):
         self.t_name = self.utils.ask_pattern('Nom: ')
@@ -63,8 +62,9 @@ class CreatePlayer:
         print(self.tournament.params)
 
 
-create_player = CreatePlayer()
-for i in range(1):
-    create_player.display_player_creation()
+controller = Controller()
+controller.get_user_choice()
+"""for i in range(1):
+    player_creation.display_player_creation()
 print(player_manager.players)
-# create_player.display_tournament_creation()
+create_player.display_tournament_creation()"""
