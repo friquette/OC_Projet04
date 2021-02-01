@@ -15,8 +15,6 @@ class Gender(Enum):
     def __str__(self):
         return self.name
 
-    # TODO: déclarer Enum dans player
-
 
 class Player(Serializable):
     """ Class of a model player
@@ -111,10 +109,6 @@ class Player(Serializable):
     @property
     def rank(self) -> int:
         return self.__rank
-
-    @property
-    def rank_pod(self) -> str:
-        return str(self.rank)
 
     @rank.setter
     def rank(self, value: Union[str, int]):

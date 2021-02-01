@@ -68,8 +68,6 @@ class PlayerView:
     def sort_player_by_name(self):
         sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: player[1]['last_name']+player[1]['first_name'])
         print(sort_by_last_name)
-        """for player in sorted(enumerate(sort_by_last_name), key=lambda f: f[1][1]['first_name']):
-            print(player[1][1])"""
         """print(f"ID: {player[1][1]['identifier']}, "
                   f"Nom: {player[1][1]['last_name']}, "
                   f"Prenom: {player[1][1]['first_name']}, "
@@ -80,7 +78,6 @@ class PlayerView:
     def sort_player_by_rank(self):
         sort_by_rank = sorted(player_manager.players.items(), key=lambda player: player[1]['rank'])
         print(sort_by_rank)
-
 
 
 player_creation = PlayerView()
