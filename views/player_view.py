@@ -4,6 +4,7 @@ from uuid import uuid4
 
 from models.player import Gender
 from player_manager import player_manager
+from serializable import Serializable
 
 
 class PlayerView:
@@ -22,7 +23,6 @@ class PlayerView:
         self.gender = None
         self.rank = None
         self.player_params = None
-        self.players = None
 
         self.redo_choices = ['Oui', 'Non']
         self.redo = None
@@ -48,8 +48,6 @@ class PlayerView:
                               'birthdate': self.birthdate, 'gender': self.gender, 'rank': self.rank}
 
         player_manager.create_player(self.player_params)
-        self.players = player_manager.players
-        print(self.player_params)
         self.ask_redo_player_creation()
 
     def ask_redo_player_creation(self):
@@ -57,9 +55,32 @@ class PlayerView:
         self.redo = self.utils.ask_choices(self.redo_choices)
 
     def display_player_by_id(self):
-        self.user_id_choice = input("Entrez l'id d'un joueur: ")
+        self.user_id_choice = self.utils.ask_identifier("Entrez l'id d'un joueur: ")
         print(player_manager.find_player_by_id(self.user_id_choice))
         self.redo = self.utils.ask_choices(self.redo_choices)
+
+    def display_saving(self):
+        player_manager.save_player_in_db()
+
+    def display_loading(self):
+        player_manager.load_player_from_db()
+
+    def sort_player_by_name(self):
+        sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: player[1]['last_name']+player[1]['first_name'])
+        print(sort_by_last_name)
+        """for player in sorted(enumerate(sort_by_last_name), key=lambda f: f[1][1]['first_name']):
+            print(player[1][1])"""
+        """print(f"ID: {player[1][1]['identifier']}, "
+                  f"Nom: {player[1][1]['last_name']}, "
+                  f"Prenom: {player[1][1]['first_name']}, "
+                  f"Date de naissance: {player[1][1]['birthdate']}, "
+                  f"Genre: {player[1][1]['gender']}, "
+                  f"Classement: {player[1][1]['rank']}")"""
+        
+    def sort_player_by_rank(self):
+        sort_by_rank = sorted(player_manager.players.items(), key=lambda player: player[1]['rank'])
+        print(sort_by_rank)
+
 
 
 player_creation = PlayerView()

@@ -19,3 +19,8 @@ class Serializable:
 
             if hasattr(self, f"{my_property}_pod"):
                 self.params[my_property] = getattr(self, f"{my_property}_pod")
+
+    def deserialize(self):
+        for i in range(len(self.property_to_serialize)):
+            my_property = self.property_to_serialize[i]
+            self.params[my_property] = getattr(self, f"{my_property}")

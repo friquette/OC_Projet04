@@ -16,8 +16,19 @@ class Tournament(Serializable):
 
     """
     def __init__(self, **params):
-        self.property_list = ['name', 'location', 'tournament_date', 'nb_round', 'rounds', 'players', 'time_rule', 'description']
+        self.property_list = ['identifier', 'name', 'location', 'tournament_date', 'nb_round', 'rounds', 'players', 'time_rule', 'description']
         super().__init__(self.property_list, **params)
+
+    @property
+    def identifier(self) -> str:
+        return self.__identifier
+
+    @identifier.setter
+    def identifier(self, value: str):
+        if type(value) == str and re.match(r"^[A-Za-z0-9 '\-éèàîïùç]{2,}$", value):
+            self.__identifier = value
+        else:
+            raise ValueError()
 
     @property
     def name(self) -> str:

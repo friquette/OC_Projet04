@@ -98,3 +98,11 @@ class Utils:
                     continue
                 else:
                     return self.u_input
+
+    def ask_identifier(self, user_input: str) -> str:
+        while True:
+            self.u_input = input(user_input)
+            if re.match(r"^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$", self.u_input):
+                return self.u_input
+            else:
+                print("Format non valide.")

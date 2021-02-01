@@ -15,6 +15,8 @@ class Gender(Enum):
     def __str__(self):
         return self.name
 
+    # TODO: déclarer Enum dans player
+
 
 class Player(Serializable):
     """ Class of a model player
@@ -40,7 +42,7 @@ class Player(Serializable):
 
     @identifier.setter
     def identifier(self, value: Union[UUID, str] = None):
-        if type(value) == str and re.match(r"^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$"):
+        if type(value) == str and re.match(r"^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$", value):
             self.__identifier = UUID(value)
         elif type(value) == UUID:
             self.__identifier = value
@@ -81,8 +83,7 @@ class Player(Serializable):
     @birthdate.setter
     def birthdate(self, value: Union[str, date]):
         if type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2})$", value):
-            date.fromisoformat(value)
-            self.__birthdate = value
+            self.__birthdate = date.fromisoformat(value)
         elif type(value) == date:
             self.__birthdate = value
         else:
@@ -94,7 +95,7 @@ class Player(Serializable):
 
     @property
     def gender_pod(self) -> str:
-        return str(self.gender)
+        return self.__gender.name
 
     @gender.setter
     def gender(self, value: Union[Gender, str]):
@@ -111,9 +112,15 @@ class Player(Serializable):
     def rank(self) -> int:
         return self.__rank
 
+    @property
+    def rank_pod(self) -> str:
+        return str(self.rank)
+
     @rank.setter
-    def rank(self, value: int):
-        if type(value) == int:
+    def rank(self, value: Union[str, int]):
+        if type(value) == str:
+            self.__rank = int(value)
+        elif type(value) == int:
             self.__rank = value
         else:
             raise ValueError()

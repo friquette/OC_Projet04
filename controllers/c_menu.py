@@ -1,6 +1,6 @@
 """ This module contains the controller of the menu."""
-import views.v_player as v_player
-import views.v_menu as v_menu
+import views.player_view as v_player
+import views.menu_view as v_menu
 
 
 class MenuController:

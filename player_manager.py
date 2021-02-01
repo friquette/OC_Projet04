@@ -1,6 +1,8 @@
 """This module contains the management of the players"""
 from uuid import UUID
 
+from tinydb import TinyDB
+
 from models.player import Player
 
 
@@ -19,15 +21,27 @@ class PlayerManager:
 
     def __init__(self):
         self.players = {}
+        self.player = None
 
     def create_player(self, params):
-        player = Player(**params)
-        self.players[player.identifier_pod] = player.params
+        self.player = Player(**params)
+        self.players[self.player.identifier_pod] = self.player.params
 
     def find_player_by_id(self, id_player: UUID) -> str:
         for player_id in self.players:
             if player_id == id_player:
                 return self.players[player_id]
+
+    def save_player_in_db(self):
+        db = TinyDB('player_database.json')
+        self.player.serialize()
+        db.insert(self.player.params)
+
+    def load_player_from_db(self):
+        db = TinyDB('player_database.json')
+        for item in db:
+            self.create_player(item)
+            self.player.deserialize()
 
 
 player_manager = PlayerManager()
