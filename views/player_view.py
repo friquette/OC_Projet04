@@ -3,8 +3,7 @@ from utility import Utils
 from uuid import uuid4
 
 from models.player import Gender
-from player_manager import player_manager
-from serializable import Serializable
+from controllers.player_manager import player_manager
 
 
 class PlayerView:
@@ -15,14 +14,6 @@ class PlayerView:
     """
     def __init__(self):
         self.utils = Utils()
-
-        self.player_id = None
-        self.last_name = None
-        self.first_name = None
-        self.birthdate = None
-        self.gender = None
-        self.rank = None
-        self.player_params = None
 
         self.redo_choices = ['Oui', 'Non']
         self.redo = None
@@ -37,17 +28,17 @@ class PlayerView:
 
         """
         print("~~~~~~~~~~Création d'un joueur~~~~~~~~~~")
-        self.player_id = uuid4()
-        self.last_name = self.utils.ask_pattern('Nom: ')
-        self.first_name = self.utils.ask_pattern('Prénom: ')
-        self.birthdate = self.utils.ask_date('Date de naissance: ', True)
+        player_id = uuid4()
+        last_name = self.utils.ask_pattern('Nom: ')
+        first_name = self.utils.ask_pattern('Prénom: ')
+        birthdate = self.utils.ask_date('Date de naissance: ', True)
         print("Genre: ")
-        self.gender = self.utils.ask_choices(list(Gender))
-        self.rank = self.utils.ask_int('Classement: ')
-        self.player_params = {'identifier': self.player_id, 'last_name': self.last_name, 'first_name': self.first_name,
-                              'birthdate': self.birthdate, 'gender': self.gender, 'rank': self.rank}
+        gender = self.utils.ask_choices(list(Gender))
+        rank = self.utils.ask_int('Classement: ')
+        player_params = {'identifier': player_id, 'last_name': last_name, 'first_name': first_name,
+                              'birthdate': birthdate, 'gender': gender, 'rank': rank}
 
-        player_manager.create_player(self.player_params)
+        player_manager.create_player(player_params)
         self.ask_redo_player_creation()
 
     def ask_redo_player_creation(self):
@@ -66,7 +57,7 @@ class PlayerView:
         player_manager.load_player_from_db()
 
     def sort_player_by_name(self):
-        sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: player[1]['last_name']+player[1]['first_name'])
+        sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: (player[1]['last_name'], player[1]['first_name']))
         print(sort_by_last_name)
         """print(f"ID: {player[1][1]['identifier']}, "
                   f"Nom: {player[1][1]['last_name']}, "
@@ -76,7 +67,7 @@ class PlayerView:
                   f"Classement: {player[1][1]['rank']}")"""
         
     def sort_player_by_rank(self):
-        sort_by_rank = sorted(player_manager.players.items(), key=lambda player: player[1]['rank'])
+        sort_by_rank = sorted(player_manager.players.items(), key=lambda player: (player[1]['rank'], player[1]['last_name'], player[1]['first_name']))
         print(sort_by_rank)
 
 

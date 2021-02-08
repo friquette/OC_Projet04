@@ -2,7 +2,7 @@
 from views.player_view import player_creation
 from views.menu_view import MenuView
 from views.tournament_view import tournament_creation
-from player_manager import player_manager
+from controllers.player_manager import player_manager
 
 
 class Controller:

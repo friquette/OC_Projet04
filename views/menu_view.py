@@ -1,6 +1,4 @@
 """ This module contains the view of the menu."""
-import controllers.c_menu as c_menu
-# from main import Controller
 import utility as utl
 
 
@@ -16,7 +14,6 @@ class MenuView:
         self.menu_choices = ["Créer un joueur", "Créer un tournoi", "Changer le classement d'un joueur",
                              "Afficher le rapport", "Quitter"]
         self.user_choice = None
-        # self.menu = Controller()
 
     def display_menu(self):
         """ Display the menu.
@@ -28,4 +25,3 @@ class MenuView:
         print("~~~~~~~~~~~~MENU~~~~~~~~~~~~")
         self.user_choice = self.utils.ask_choices(self.menu_choices)
         print("")
-        # self.menu.get_user_choice()

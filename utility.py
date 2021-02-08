@@ -79,7 +79,7 @@ class Utils:
                     print("Cette option n'existe pas.\n")
 
     def ask_int(self, user_input: str) -> int:
-        """ Gets an input and return it if it is a positive integer.
+        """ Gets an input and return it as an integer if it is a positive value.
 
         Parameter:
         user_input -- the user input to verify.
@@ -98,6 +98,23 @@ class Utils:
                     continue
                 else:
                     return self.u_input
+
+    def ask_float(self, user_input: str) -> float:
+        """ Gets an input and return it as a float.
+
+        Parameter:
+        user_input -- the user input to verify.
+        Return:
+        u_input -- the user input verified and converted into a float.
+
+        """
+        while True:
+            try:
+                self.u_input = float(input(user_input))
+            except ValueError:
+                print("Seuls des chiffres sont autorisés.")
+            else:
+                return self.u_input
 
     def ask_identifier(self, user_input: str) -> str:
         while True:
