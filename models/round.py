@@ -1,9 +1,8 @@
 from datetime import datetime
-from typing import List, Union
+from typing import Union
 import re
 
 from serializable import Serializable
-from models.match import Match
 
 
 class Round(Serializable):
@@ -17,7 +16,7 @@ class Round(Serializable):
 
     @name.setter
     def name(self, value: str):
-        if type(value) == str and re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", value):
+        if type(value) == str and re.match(r"^[A-Za-z0-9 '\-éèàîïùç]{2,}$", value):
             self.__name = value
         else:
             raise ValueError()
@@ -59,12 +58,12 @@ class Round(Serializable):
             raise ValueError()
 
     @property
-    def match_list(self) -> List[Match]:
+    def match_list(self) -> list:
         return self.__match_list
 
     @match_list.setter
-    def match_list(self, value: List[Match]):
-        if type(value) == List[Match]:
+    def match_list(self, value: list):
+        if type(value) == list:
             self.__match_list = value
         else:
             raise ValueError()
