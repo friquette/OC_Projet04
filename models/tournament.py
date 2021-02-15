@@ -85,6 +85,11 @@ class Tournament(Serializable):
     def rounds(self) -> list:
         return self.__rounds
 
+    @property
+    def rounds_pod(self) -> list:
+        self.__rounds = [str(i) for i in self.__rounds]
+        return self.__rounds
+
     @rounds.setter
     def rounds(self, value: list):
         if type(value) == list:
@@ -94,6 +99,11 @@ class Tournament(Serializable):
 
     @property
     def players(self) -> list:
+        return self.__players
+
+    @property
+    def players_pod(self) -> list:
+        self.__players = [player.serialize() for player in self.players]
         return self.__players
 
     @players.setter

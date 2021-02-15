@@ -58,17 +58,25 @@ class PlayerView:
 
     def sort_player_by_name(self):
         sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: (player[1]['last_name'], player[1]['first_name']))
-        print(sort_by_last_name)
-        """print(f"ID: {player[1][1]['identifier']}, "
-                  f"Nom: {player[1][1]['last_name']}, "
-                  f"Prenom: {player[1][1]['first_name']}, "
-                  f"Date de naissance: {player[1][1]['birthdate']}, "
-                  f"Genre: {player[1][1]['gender']}, "
-                  f"Classement: {player[1][1]['rank']}")"""
+
+        for player in sort_by_last_name:
+            print(f"ID: {player[1]['identifier']}, "
+                  f"Nom: {player[1]['last_name']}, "
+                  f"Prenom: {player[1]['first_name']}, "
+                  f"Date de naissance: {player[1]['birthdate']}, "
+                  f"Genre: {player[1]['gender']}, "
+                  f"Classement: {player[1]['rank']}")
         
     def sort_player_by_rank(self):
         sort_by_rank = sorted(player_manager.players.items(), key=lambda player: (player[1]['rank'], player[1]['last_name'], player[1]['first_name']))
-        print(sort_by_rank)
+
+        for player in sort_by_rank:
+            print(f"ID: {player[1]['identifier']}, "
+                  f"Nom: {player[1]['last_name']}, "
+                  f"Prenom: {player[1]['first_name']}, "
+                  f"Date de naissance: {player[1]['birthdate']}, "
+                  f"Genre: {player[1]['gender']}, "
+                  f"Classement: {player[1]['rank']}")
 
 
 player_creation = PlayerView()

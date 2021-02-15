@@ -23,13 +23,19 @@ class Controller:
                         break
             elif self.menu.user_choice == self.menu.menu_choices[1]:
                 self.tournament_creation.display_tournament_creation()
-                print(self.tournament_creation.tournaments)
             elif self.menu.user_choice == self.menu.menu_choices[2]:
-                player_creation.sort_player_by_rank()
+                self.menu.display_report_choice()
+                if self.menu.user_choice == self.menu.rapport_choices[0]:
+                    self.menu.display_sort_choice()
+                    if self.menu.user_choice == self.menu.sort_choices[0]:
+                        player_creation.sort_player_by_name()
+                    else:
+                        player_creation.sort_player_by_rank()
             else:
                 print('fermeture du programme')
                 break
 
 
-controller = Controller()
-controller.get_user_choice()
+if __name__ == "__main__":
+    controller = Controller()
+    controller.get_user_choice()
