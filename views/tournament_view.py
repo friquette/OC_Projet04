@@ -14,11 +14,17 @@ class TournamentView:
         self.round_manager = round_manager
 
     def display_tournament_creation(self):
-        name = self.utils.ask_pattern('Nom: ')
-        location = self.utils.ask_pattern('Lieu: ')
-        date = self.utils.ask_date('Date: ', False)
-        identifier = f"{location}{date}"[:-9]
+        rounds = []
+        new_player_list = []
+
+        # name = self.utils.ask_pattern('Nom: ')
+        # location = self.utils.ask_pattern('Lieu: ')
+        # date = self.utils.ask_date('Date: ', False)
+        # identifier = f"{location}{date}"[:-9]
+        # time_rule = self.utils.ask_choices(['bullet', 'rapid', 'normal'])
+        # description = self.utils.ask_pattern('Description: ')
         nb_round = self.utils.ask_int('Nombre de round: ')
+
         """for i in range(8):
             while True:
                 user_id_choice = self.utils.ask_identifier(f"Id du joueur {i + 1}: ")
@@ -38,18 +44,21 @@ class TournamentView:
 
         for player in players:
             id_user = self.player_manager.find_player_by_id(player)
-            self.players.append(id_user)
-        time_rule = self.utils.ask_choices(['bullet', 'rapid', 'normal'])
-        description = self.utils.ask_pattern('Description: ')
+            new_player_list.append([id_user, 0])
 
-        self.round_manager.create_first_round(self.players, nb_round)
-        rounds = self.round_manager.rounds
+        for i in range(nb_round):
+            self.round_manager.create_match(new_player_list, i)
+            for new_player in new_player_list:
+                self.round_manager.ask_score(new_player)
 
-        tournament_params = {'identifier': identifier, 'name': name, 'location': location,
-                             'tournament_date': date, 'nb_round': nb_round, 'rounds': rounds,
-                             'players': self.players, 'time_rule': time_rule, 'description': description}
+            rounds.append(self.round_manager.rounds.copy())
+            for round in rounds:
+                print(f"round: {round} \n")
+
+        tournament_params = {'identifier': "identifier", 'name': "name", 'location': "location",
+                             'tournament_date': "2021-02-16 15:02", 'nb_round': nb_round, 'rounds': ['rounds'],
+                             'players': self.players, 'time_rule': "time rule", 'description': "description"}
         tournament_manager.create_tournament(tournament_params)
-        print(tournament_manager.tournaments)
 
 
 tournament_creation = TournamentView()
