@@ -7,6 +7,7 @@ from utility import Utils
 class RoundManager:
     def __init__(self):
         self.set_matches = set()
+        self.this_round = {}
         self.rounds = []
         self.utils = Utils()
 
@@ -53,6 +54,10 @@ class RoundManager:
     def ask_score(self, players_list):
         new_score = self.utils.ask_float(f"Score de {players_list[0]['last_name']} {players_list[0]['first_name']}: ")
         players_list[1] += float(new_score)
+
+    def create_round(self, params):
+        current_round = Round(**params)
+        self.this_round = current_round.params
 
 
 round_manager = RoundManager()
