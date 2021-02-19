@@ -27,10 +27,10 @@ class PlayerManager:
         self.player = Player(**params)
         self.players[self.player.identifier_pod] = self.player.params
 
-    def find_player_by_id(self, id_player: UUID) -> str:
-        for player_id in self.players:
-            if player_id == id_player:
-                return self.players[player_id]
+    def find_player_by_id(self, id_player: str) -> str:
+        for key, value in self.players.items():
+            if key == id_player:
+                return self.players[key]
 
     def save_player_in_db(self):
         db = TinyDB('database.json')

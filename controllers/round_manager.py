@@ -7,11 +7,11 @@ class RoundManager:
         self.set_matches = set()
         self.this_round = {}
         self.current_round = None
-        self.test = []
         self.rounds = []
         self.utils = Utils()
 
     def create_match(self, players_list, nb_round):
+        print("")
         print(f"Round n°{nb_round+1}")
         self.rounds.clear()
 
@@ -27,7 +27,8 @@ class RoundManager:
             inverted_current_match = current_match[::-1]
 
             if current_match not in self.set_matches and inverted_current_match not in self.set_matches:
-                print(f"{match[0][0]['first_name']} contre {match[1][0]['first_name']}")
+                print(f"{match[0][0]['last_name']} {match[0][0]['first_name']} contre "
+                      f"{match[1][0]['first_name']} {match[1][0]['last_name']}")
                 first_half.pop(0)
                 second_half.pop(0)
             elif len(first_half) == 1 and len(second_half) == 1:
@@ -41,7 +42,8 @@ class RoundManager:
                     inverted_current_match = current_match[::-1]
 
                     if current_match not in self.set_matches and inverted_current_match not in self.set_matches:
-                        print(f"{match[0][0]['first_name']} contre {match[1][0]['first_name']}")
+                        print(f"{match[0][0]['last_name']} {match[0][0]['first_name']} contre "
+                              f"{match[1][0]['first_name']} {match[1][0]['last_name']}")
                         first_half.pop(0)
                         second_half.pop(next_player)
                         break
@@ -61,7 +63,6 @@ class RoundManager:
 
     def serialize_round(self):
         self.current_round.serialize()
-        self.test.append(self.current_round.params)
 
 
 round_manager = RoundManager()

@@ -26,9 +26,9 @@ class TournamentManager:
         self.tournaments[self.tournament.identifier] = self.tournament.params
 
     def find_tournament_by_id(self, id_tournament: str) -> str:
-        for tournament_id in self.tournaments:
-            if tournament_id == id_tournament:
-                return self.tournaments[tournament_id]
+        for key, value in self.tournaments.items():
+            if key == id_tournament:
+                return self.tournaments[key]
 
     def save_tournament_in_db(self):
         db = TinyDB('database.json')

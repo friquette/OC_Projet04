@@ -123,3 +123,11 @@ class Utils:
                 return self.u_input
             else:
                 print("Format non valide.")
+
+    def ask_tournament_identifier(self, user_input: str) -> str:
+        while True:
+            self.u_input = input(user_input)
+            if re.match(r"^[A-Za-z '\-éèàîïùç]{2,}(\d{4})-(\d{2})-(\d{2})$", self.u_input):
+                return self.u_input
+            else:
+                print("Format non valide.")

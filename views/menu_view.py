@@ -12,9 +12,9 @@ class MenuView:
     def __init__(self):
         self.utils = utl.Utils()
         self.menu_choices = ["Créer un joueur", "Créer un tournoi", "Rapport", "Quitter"]
-        self.rapport_choices = ["Afficher tous les joueurs", "Afficher les joueurs d'un tournoi",
-                        "Afficher tous les tournois", "Afficher les tours d'un tournoi",
-                        "Afficher les matchs d'un tournoi"]
+        self.report_choices = ["Joueurs", "Tournois"]
+        self.players_choices = ["Afficher tous les joueurs", "Afficher les joueurs d'un tournoi"]
+        self.tournament_choices = ["Afficher tous les tournois", "Afficher les détails d'un tournoi"]
         self.sort_choices = ["Trier par ordre alphabétique", "Trier par classement"]
         self.user_choice = None
 
@@ -29,12 +29,25 @@ class MenuView:
         self.user_choice = self.utils.ask_choices(self.menu_choices)
         print("")
 
+    def display_report_choice(self):
+        print("Choisissez une catégorie: ")
+        self.user_choice = self.utils.ask_choices(self.report_choices)
+        print("")
+
+    def display_players_choice(self):
+        print("Choisissez un rapport: ")
+        self.user_choice = self.utils.ask_choices(self.players_choices)
+        print("")
+
     def display_sort_choice(self):
         print("Affichage de tous les joueurs: ")
         self.user_choice = self.utils.ask_choices(self.sort_choices)
         print("")
 
-    def display_report_choice(self):
-        print("Affichage des rapports: ")
-        self.user_choice = self.utils.ask_choices(self.rapport_choices)
+    def display_tournament_choices(self):
+        print("Choisissez un rapport: ")
+        self.user_choice = self.utils.ask_choices(self.tournament_choices)
         print("")
+
+
+menu_creation = MenuView()

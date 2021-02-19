@@ -73,8 +73,10 @@ class Tournament(Serializable):
 
     @tournament_date.setter
     def tournament_date(self, value: Union[str, datetime]):
-        if type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", value)\
-                or re.match(r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$", value):
+        if type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", value):
+            datetime.fromisoformat(value)
+            self.__tournament_date = value
+        elif type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$", value):
             datetime.fromisoformat(value)
             self.__tournament_date = value
         elif type(value) == datetime:

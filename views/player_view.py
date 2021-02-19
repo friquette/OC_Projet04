@@ -31,7 +31,7 @@ class PlayerView:
         player_id = uuid4()
         last_name = self.utils.ask_pattern('Nom: ')
         first_name = self.utils.ask_pattern('Prénom: ')
-        birthdate = self.utils.ask_date('Date de naissance: ', True)
+        birthdate = self.utils.ask_date('Date de naissance (AAAA-MM-JJ): ', True)
         print("Genre: ")
         gender = self.utils.ask_choices(list(Gender))
         rank = self.utils.ask_int('Classement: ')
