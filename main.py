@@ -1,7 +1,8 @@
 """Module for testing purposes"""
-from views.player_view import player_creation
 from views.menu_view import MenuView
 from views.tournament_view import tournament_creation
+from controllers.tournament_manager import tournament_manager
+from views.player_view import player_creation
 from controllers.player_manager import player_manager
 
 
@@ -13,6 +14,7 @@ class Controller:
 
     def get_user_choice(self):
         player_manager.load_player_from_db()
+        tournament_manager.load_tournament_from_db()
         while True:
             self.menu.display_menu()
             if self.menu.user_choice == self.menu.menu_choices[0]:
@@ -23,6 +25,7 @@ class Controller:
                         break
             elif self.menu.user_choice == self.menu.menu_choices[1]:
                 self.tournament_creation.display_tournament_creation()
+                tournament_manager.save_tournament_in_db()
             elif self.menu.user_choice == self.menu.menu_choices[2]:
                 self.menu.display_report_choice()
                 if self.menu.user_choice == self.menu.rapport_choices[0]:

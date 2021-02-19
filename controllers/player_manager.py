@@ -33,15 +33,16 @@ class PlayerManager:
                 return self.players[player_id]
 
     def save_player_in_db(self):
-        db = TinyDB('player_database.json')
+        db = TinyDB('database.json')
+        table = db.table('players')
         self.player.serialize()
-        db.insert(self.player.params)
+        table.insert(self.player.params)
 
     def load_player_from_db(self):
-        db = TinyDB('player_database.json')
-        for item in db:
+        db = TinyDB('database.json')
+        table = db.table('players')
+        for item in table:
             self.create_player(item)
-            self.player.deserialize()
 
 
 player_manager = PlayerManager()

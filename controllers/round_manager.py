@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from models.round import Round
 from utility import Utils
 
@@ -8,6 +6,8 @@ class RoundManager:
     def __init__(self):
         self.set_matches = set()
         self.this_round = {}
+        self.current_round = None
+        self.test = []
         self.rounds = []
         self.utils = Utils()
 
@@ -56,8 +56,12 @@ class RoundManager:
         players_list[1] += float(new_score)
 
     def create_round(self, params):
-        current_round = Round(**params)
-        self.this_round = current_round.params
+        self.current_round = Round(**params)
+        self.this_round = self.current_round.params
+
+    def serialize_round(self):
+        self.current_round.serialize()
+        self.test.append(self.current_round.params)
 
 
 round_manager = RoundManager()

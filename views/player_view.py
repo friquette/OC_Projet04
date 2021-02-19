@@ -50,12 +50,6 @@ class PlayerView:
         print(player_manager.find_player_by_id(self.user_id_choice))
         self.redo = self.utils.ask_choices(self.redo_choices)
 
-    def display_saving(self):
-        player_manager.save_player_in_db()
-
-    def display_loading(self):
-        player_manager.load_player_from_db()
-
     def sort_player_by_name(self):
         sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: (player[1]['last_name'], player[1]['first_name']))
 

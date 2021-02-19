@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from utility import Utils
+from models.tournament import TimeRule
 from controllers.player_manager import player_manager
 from controllers.tournament_manager import tournament_manager
 from controllers.round_manager import round_manager
@@ -16,15 +17,15 @@ class TournamentView:
         self.round_manager = round_manager
 
     def display_tournament_creation(self):
-        rounds = []
         new_player_list = []
 
-        # name = self.utils.ask_pattern('Nom: ')
-        # location = self.utils.ask_pattern('Lieu: ')
-        # date = self.utils.ask_date('Date: ', False)
-        # identifier = f"{location}{date}"[:-9]
-        # time_rule = self.utils.ask_choices(['bullet', 'rapid', 'normal'])
-        # description = self.utils.ask_pattern('Description: ')
+        name = self.utils.ask_pattern('Nom: ')
+        location = self.utils.ask_pattern('Lieu: ')
+        date = self.utils.ask_date('Date: ', False)
+        identifier = f"{location}{date}"[:-9]
+        print("Contrôle du temps: ")
+        time_rule = self.utils.ask_choices(list(TimeRule))
+        description = self.utils.ask_pattern('Description: ')
         nb_round = self.utils.ask_int('Nombre de round: ')
 
         """for i in range(8):
@@ -51,14 +52,14 @@ class TournamentView:
 
         self.generate_rounds(new_player_list, nb_round)
 
-        tournament_params = {'identifier': "identifier", 'name': "name", 'location': "location",
-                             'tournament_date': "2021-02-16 15:02", 'nb_round': nb_round, 'rounds': self.rounds,
-                             'players': self.players, 'time_rule': "time rule", 'description': "description"}
+        tournament_params = {'identifier': identifier, 'name': name, 'location': location, 'tournament_date': date,
+                             'nb_round': nb_round, 'rounds': self.rounds, 'players': self.players,
+                             'time_rule': time_rule, 'description': description}
         tournament_manager.create_tournament(tournament_params)
 
     def generate_rounds(self, player_list, nb_round):
         for i in range(nb_round):
-            start_round = datetime.today()
+            start_round = datetime.today().replace(second=0, microsecond=0)
             round_name = f"Round {i+1}"
             new_round = []
             self.round_manager.create_match(player_list, i)
@@ -68,11 +69,12 @@ class TournamentView:
                     self.round_manager.ask_score(player)
                 match = (round[0][:], round[1][:])
                 new_round.append(match)
-            end_round = datetime.today()
+            end_round = datetime.today().replace(second=0, microsecond=0)
 
             round_params = {'name': round_name, 'start_date': start_round, 'end_date': end_round,
                             'match_list': new_round}
             round_manager.create_round(round_params)
+            round_manager.serialize_round()
             self.rounds.append(round_manager.this_round)
 
 

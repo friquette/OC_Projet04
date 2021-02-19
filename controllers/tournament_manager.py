@@ -1,4 +1,6 @@
 """This module contains the management of the players"""
+from tinydb import TinyDB
+
 from models.tournament import Tournament
 
 
@@ -17,15 +19,28 @@ class TournamentManager:
 
     def __init__(self):
         self.tournaments = {}
+        self.tournament = None
 
     def create_tournament(self, params):
-        tournament = Tournament(**params)
-        self.tournaments[tournament.identifier] = tournament.params
+        self.tournament = Tournament(**params)
+        self.tournaments[self.tournament.identifier] = self.tournament.params
 
     def find_tournament_by_id(self, id_tournament: str) -> str:
         for tournament_id in self.tournaments:
             if tournament_id == id_tournament:
                 return self.tournaments[tournament_id]
+
+    def save_tournament_in_db(self):
+        db = TinyDB('database.json')
+        table = db.table('tournaments')
+        self.tournament.serialize()
+        table.insert(self.tournament.params)
+
+    def load_tournament_from_db(self):
+        db = TinyDB('database.json')
+        table = db.table('tournaments')
+        for item in table:
+            self.create_tournament(item)
 
 
 tournament_manager = TournamentManager()

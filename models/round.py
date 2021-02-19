@@ -61,6 +61,12 @@ class Round(Serializable):
     def match_list(self) -> list:
         return self.__match_list
 
+    @property
+    def match_list_pod(self) -> list:
+
+        # self.__match_list = [match.serialize() for match in self.match_list]
+        return self.__match_list
+
     @match_list.setter
     def match_list(self, value: list):
         if type(value) == list:

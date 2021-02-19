@@ -2,8 +2,18 @@
 import re
 from typing import Union, List
 from datetime import datetime
+from enum import Enum
 
 from serializable import Serializable
+
+
+class TimeRule(Enum):
+    BULLET = 1
+    BLITZ = 2
+    RAPID = 3
+
+    def __str__(self):
+        return self.name
 
 
 class Tournament(Serializable):
@@ -16,7 +26,8 @@ class Tournament(Serializable):
 
     """
     def __init__(self, **params):
-        self.property_list = ['identifier', 'name', 'location', 'tournament_date', 'nb_round', 'rounds', 'players', 'time_rule', 'description']
+        self.property_list = ['identifier', 'name', 'location', 'tournament_date', 'nb_round', 'rounds', 'players',
+                              'time_rule', 'description']
         super().__init__(self.property_list, **params)
 
     @property
@@ -62,7 +73,8 @@ class Tournament(Serializable):
 
     @tournament_date.setter
     def tournament_date(self, value: Union[str, datetime]):
-        if type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", value):
+        if type(value) == str and re.match(r"^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$", value)\
+                or re.match(r"^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})$", value):
             datetime.fromisoformat(value)
             self.__tournament_date = value
         elif type(value) == datetime:
@@ -87,7 +99,7 @@ class Tournament(Serializable):
 
     @property
     def rounds_pod(self) -> list:
-        self.__rounds = [str(i) for i in self.__rounds]
+        self.__rounds = [round.serialize() for round in self.rounds]
         return self.__rounds
 
     @rounds.setter
@@ -114,12 +126,22 @@ class Tournament(Serializable):
             raise ValueError()
 
     @property
-    def time_rule(self) -> str:
+    def time_rule(self) -> TimeRule:
         return self.__time_rule
 
+    @property
+    def time_rule_pod(self) -> str:
+        return self.__time_rule.name
+
     @time_rule.setter
-    def time_rule(self, value: str):
-        if type(value) == str and re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", value):
+    def time_rule(self, value: Union[TimeRule, str]):
+        if type(value) == str and re.match(r"BULLET", value):
+            self.__time_rule = TimeRule[value]
+        elif type(value) == str and re.match(r"BLITZ", value):
+            self.__time_rule = TimeRule[value]
+        elif type(value) == str and re.match(r"RAPID", value):
+            self.__time_rule = TimeRule[value]
+        elif type(value) == TimeRule:
             self.__time_rule = value
         else:
             raise ValueError()
@@ -130,7 +152,7 @@ class Tournament(Serializable):
 
     @description.setter
     def description(self, value: str):
-        if type(value) == str and re.match(r"^[A-Za-z '\-éèàîïùç]{2,}$", value):
+        if type(value) == str and re.match(r"^[A-Za-z0-9 '\-éèàîïùç]{2,}$", value):
             self.__description = value
         else:
             raise ValueError()
