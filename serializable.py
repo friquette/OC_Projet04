@@ -1,4 +1,18 @@
+""" Module containing the Serializable class"""
+
+
 class Serializable:
+    """ This is a factory class
+
+    Creates the properties of an object from the property_to_serialize and the params.
+    It contains 1 method:
+    serialize: serialize each property of the property_to_serialize list. Uses the _pod if it exists.
+
+    Parameters:
+        property_to_serialize: list of properties corresponding to the dictionary keys.
+        **params: the dictionary used to create the object.
+
+    """
     def __init__(self, property_to_serialize: list, **params):
         self.property_to_serialize = property_to_serialize
         self.params = params

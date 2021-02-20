@@ -6,7 +6,7 @@ from datetime import date, datetime
 class Utils:
     """ Class of the utility functions.
 
-    Contains 4 utility functions verifying the user input with regex and return the input if
+    Contains 7 utility functions verifying the user input with regex and return the input if
     the regex is verified. Return an error if not.
 
     """
@@ -32,8 +32,8 @@ class Utils:
     def ask_date(self, user_input: str, choice_date: bool) -> date:
         """ Gets an input and return it if it matches the regex and the bool value.
 
-        If the input matches the regex and the bool value is True, then convert the input in a
-        date type. If the input matches the regex and the bool value is False, the convert the
+        If the input matches the regex and the bool value is True, then converts the input in a
+        date type. If the input matches the regex and the bool value is False, the converts the
         input in a datetime type.
         Parameter:
         user_input -- the user input to verify.
@@ -57,7 +57,7 @@ class Utils:
     def ask_choices(self, choices: list) -> int:
         """ Gets a list and print all the elements of the list.
 
-        Go through the list and print all the elements one after the other. Then ask the user to
+        Goes through the list and prints all the elements one after the other. Then asks the user to
         enter a number within the list range.
         Parameter:
         choices -- the list that will be searched
@@ -117,6 +117,14 @@ class Utils:
                 return self.u_input
 
     def ask_identifier(self, user_input: str) -> str:
+        """ Gets an input and returns it if it matches the regex.
+
+        Parameter:
+        user_input -- the user input to verify
+        Return:
+        u_input -- the user input verified
+
+        """
         while True:
             self.u_input = input(user_input)
             if re.match(r"^[a-z0-9]{8}-([a-z0-9]{4}-){3}[a-z0-9]{12}$", self.u_input):
@@ -125,6 +133,14 @@ class Utils:
                 print("Format non valide.")
 
     def ask_tournament_identifier(self, user_input: str) -> str:
+        """ Gets an input and returns it if it matches the regex.
+
+        Parameter:
+        user_input -- the user input to verify
+        Return:
+        u_input -- the user input verified
+
+        """
         while True:
             self.u_input = input(user_input)
             if re.match(r"^[A-Za-z '\-éèàîïùç]{2,}(\d{4})-(\d{2})-(\d{2})$", self.u_input):

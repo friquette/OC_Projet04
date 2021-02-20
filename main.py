@@ -1,4 +1,4 @@
-"""Module for testing purposes"""
+"""Main module"""
 from views.menu_view import menu_creation
 from views.tournament_view import tournament_creation
 from controllers.tournament_manager import tournament_manager
@@ -7,6 +7,13 @@ from controllers.player_manager import player_manager
 
 
 class Controller:
+    """ Class of the general controller
+
+    Load all the players and the tournaments from the database at the opening of the software.
+    This class controls the menu. It saves each player and each tournament in the database at
+    the end of their creation.
+
+    """
     def get_user_choice(self):
         player_manager.load_player_from_db()
         tournament_manager.load_tournament_from_db()
