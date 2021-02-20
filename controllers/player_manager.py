@@ -1,6 +1,4 @@
 """This module contains the management of the players"""
-from uuid import UUID
-
 from tinydb import TinyDB
 
 from models.player import Player
@@ -9,13 +7,12 @@ from models.player import Player
 class PlayerManager:
     """ Class of a player manager
 
-    This class contains two methods. id_verification: verifies if the id generated is already attributed.
-    player_verification: verifies if the player created is already in the database.
-
-    Parameters:
-    players -- dict of all the players
-    current_id -- uuid created with the new player
-    current_player -- dict of the new player created
+    This class contains methods to create, search or save players. It contains 4 methods:
+    create_player: create a player from the params and puts it in the players dict with the player
+                identifier as the key.
+    find_player_by_id: verifies if the id is in the players dict and returns the matching player.
+    save_player_in_db: serialize the player and saves it in the database under the 'player' table.
+    load_player_from_db: create a player for each item in the 'player' table.
 
     """
 

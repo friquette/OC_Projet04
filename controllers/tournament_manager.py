@@ -1,19 +1,18 @@
-"""This module contains the management of the players"""
+"""This module contains the management of the tournaments"""
 from tinydb import TinyDB
 
 from models.tournament import Tournament
 
 
 class TournamentManager:
-    """ Class of a player manager
+    """ Class of a tournament manager
 
-    This class contains two methods. id_verification: verifies if the id generated is already attributed.
-    player_verification: verifies if the player created is already in the database.
-
-    Parameters:
-    players -- dict of all the players
-    current_id -- uuid created with the new player
-    current_player -- dict of the new player created
+    This class contains methods to create, search or save tournaments. It contains 4 methods:
+    create_tournament: create a tournament from the params and puts it in the tournaments dict with
+                    the tournament id as the key.
+    find_tournament_by_id: verifies if the id is in the tournaments dict and returns the matching tournament.
+    save_tournament_in_db: serialize the tournament and saves it in the database under the 'tournaments' table.
+    load_tournament_from_db: creates a tournament for each item in the 'tournaments' table.
 
     """
 

@@ -1,8 +1,20 @@
+"""This module contains the management of the rounds"""
 from models.round import Round
 from utility import Utils
 
 
 class RoundManager:
+    """ Class of a round manager
+
+        This class contains methods to create rounds and matches. It contains 4 methods:
+        create_match: creates all the matches for a round by sorting the players from lowest rank
+                    to highest rank, separating them in two lists and associating the players with
+                    their index, making sure a match has not been already created.
+        ask_score: asks the score of each player and adds it to the previous score.
+        create_round: create a round from the params and puts it in the rounds dict.
+        serialize_round: serialize a round.
+
+        """
     def __init__(self):
         self.set_matches = set()
         self.this_round = {}
