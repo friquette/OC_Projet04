@@ -6,7 +6,14 @@ class MenuView:
     """ Class of the view menu.
 
     Create a list of choices which will be used to print the different possibilities to
-    the user and ask him to choose.
+    the user and ask him to choose. It contains 5 methods:
+    display_menu: displays the menu choices (créer un joueur, créer un tournoi, rapport, quitter).
+    display_report_choices: displays the report choices (joueurs, tournois).
+    display_players_choices: displays the players choices (afficher tous les joueurs, afficher les
+                    joueurs d'un tournoi).
+    display_sort_choice: displays the choices to sort the players (par ordre alphabétique, par classement).
+    display_tournament_choices: displays the tournaments choices (afficher tous les tournois, afficher
+                    les détails d'un tournoi).
 
     """
     def __init__(self):
