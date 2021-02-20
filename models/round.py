@@ -1,3 +1,4 @@
+""" This module contains the model of a round."""
 from datetime import datetime
 from typing import Union
 import re
@@ -6,6 +7,16 @@ from serializable import Serializable
 
 
 class Round(Serializable):
+    """ Class of a model round
+
+        Daughter of the Serializable class. Initiate a list of property to serialize. Property and
+        Setter decorators for each property to prevent the user from directly accessing the variables.
+        methodname_pod version used to serialize, converting the variable type into str.
+
+        Parameters:
+        **params -- dict containing the information of a round.
+
+        """
     def __init__(self, **params):
         self.property_list = ['name', 'start_date', 'end_date', 'match_list']
         super().__init__(self.property_list, **params)

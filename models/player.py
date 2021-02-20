@@ -9,6 +9,7 @@ from serializable import Serializable
 
 
 class Gender(Enum):
+    """ The Gender class contains two constants: HOMME and FEMME."""
     HOMME = 1
     FEMME = 2
 
@@ -21,8 +22,9 @@ class Player(Serializable):
 
     Daughter of the Serializable class. Initiate a list of property to serialize. Property and
     Setter decorators for each property to prevent the user from directly accessing the variables.
+    methodname_pod version used to serialize, converting the variable type into str.
     Parameters:
-    **params -- dict containing the information of a player
+    **params -- dict containing the information of a player.
 
     """
     def __init__(self, **params):

@@ -8,6 +8,8 @@ from serializable import Serializable
 
 
 class TimeRule(Enum):
+    """ The TimeRule class contains three constants: BULLET, BLITZ and RAPID."""
+
     BULLET = 1
     BLITZ = 2
     RAPID = 3
@@ -21,6 +23,8 @@ class Tournament(Serializable):
 
     Daughter of the Serializable class. Initiate a list of property to serialize. Property and
     Setter decorators for each property to prevent the user from directly accessing the variables.
+    methodname_pod version used to serialize, converting the variable type into str.
+
     Parameters:
     **params -- dict containing the information of a tournament.
 
