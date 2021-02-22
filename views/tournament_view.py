@@ -1,7 +1,7 @@
 """ This module contains the view of the tournament."""
 from datetime import datetime
 
-from utility import Utils
+from misc.utility import Utils
 from models.tournament import TimeRule
 from controllers.player_manager import player_manager
 from controllers.tournament_manager import tournament_manager

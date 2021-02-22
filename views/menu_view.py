@@ -1,5 +1,5 @@
 """ This module contains the view of the menu."""
-import utility as utl
+from misc import utility as utl
 
 
 class MenuView:

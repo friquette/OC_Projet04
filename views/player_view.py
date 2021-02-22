@@ -1,5 +1,5 @@
 """ This module contains the view of the player."""
-from utility import Utils
+from misc.utility import Utils
 from uuid import uuid4
 
 from models.player import Gender
@@ -41,7 +41,7 @@ class PlayerView:
         gender = self.utils.ask_choices(list(Gender))
         rank = self.utils.ask_int('Classement: ')
         player_params = {'identifier': player_id, 'last_name': last_name, 'first_name': first_name,
-                              'birthdate': birthdate, 'gender': gender, 'rank': rank}
+                         'birthdate': birthdate, 'gender': gender, 'rank': rank}
 
         player_manager.create_player(player_params)
         self.ask_redo_player_creation()
@@ -51,7 +51,8 @@ class PlayerView:
         self.redo = self.utils.ask_choices(self.redo_choices)
 
     def sort_player_by_name(self):
-        sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: (player[1]['last_name'], player[1]['first_name']))
+        sort_by_last_name = sorted(player_manager.players.items(), key=lambda player: (player[1]['last_name'],
+                                                                                       player[1]['first_name']))
 
         for player in sort_by_last_name:
             print(f"ID: {player[1]['identifier']}, "
@@ -60,9 +61,11 @@ class PlayerView:
                   f"Date de naissance: {player[1]['birthdate']}, "
                   f"Genre: {player[1]['gender']}, "
                   f"Classement: {player[1]['rank']}")
-        
+
     def sort_player_by_rank(self):
-        sort_by_rank = sorted(player_manager.players.items(), key=lambda player: (player[1]['rank'], player[1]['last_name'], player[1]['first_name']))
+        sort_by_rank = sorted(player_manager.players.items(), key=lambda player: (player[1]['rank'],
+                                                                                  player[1]['last_name'],
+                                                                                  player[1]['first_name']))
 
         for player in sort_by_rank:
             print(f"ID: {player[1]['identifier']}, "
@@ -76,11 +79,11 @@ class PlayerView:
         player_id = self.utils.ask_identifier("Entrez l'ID du joueur à modifier: ")
         player_to_modify = player_manager.find_player_by_id(player_id)
         print(f"ID: {player_to_modify['identifier']}, "
-                  f"Nom: {player_to_modify['last_name']}, "
-                  f"Prenom: {player_to_modify['first_name']}, "
-                  f"Date de naissance: {player_to_modify['birthdate']}, "
-                  f"Genre: {player_to_modify['gender']}, "
-                  f"Classement: {player_to_modify['rank']} \n")
+              f"Nom: {player_to_modify['last_name']}, "
+              f"Prenom: {player_to_modify['first_name']}, "
+              f"Date de naissance: {player_to_modify['birthdate']}, "
+              f"Genre: {player_to_modify['gender']}, "
+              f"Classement: {player_to_modify['rank']} \n")
 
         new_rank = self.utils.ask_int("Nouveau classement: ")
         player_manager.modify_player_rank_in_db(player_id, new_rank)

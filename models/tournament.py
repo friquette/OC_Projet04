@@ -4,7 +4,7 @@ from typing import Union, List
 from datetime import datetime
 from enum import Enum
 
-from serializable import Serializable
+from misc.serializable import Serializable
 
 
 class TimeRule(Enum):

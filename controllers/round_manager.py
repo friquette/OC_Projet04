@@ -1,6 +1,6 @@
 """This module contains the management of the rounds"""
 from models.round import Round
-from utility import Utils
+from misc.utility import Utils
 
 
 class RoundManager:
@@ -27,7 +27,8 @@ class RoundManager:
         print(f"Round n°{nb_round+1}")
         self.rounds.clear()
 
-        sorted_players = sorted(players_list, key=lambda player: (player[1], player[0]['rank'], player[0]['last_name']))
+        sorted_players = sorted(players_list, key=lambda player: (player[1], player[0]['rank'],
+                                                                  player[0]['last_name']))
         first_half = sorted_players[0:4]
         second_half = sorted_players[4:8]
 

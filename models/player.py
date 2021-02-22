@@ -5,7 +5,7 @@ from datetime import date
 from uuid import UUID
 from enum import Enum
 
-from serializable import Serializable
+from misc.serializable import Serializable
 
 
 class Gender(Enum):
@@ -31,7 +31,6 @@ class Player(Serializable):
         self.property_list = ['identifier', 'last_name', 'first_name', 'birthdate', 'gender', 'rank']
         super().__init__(self.property_list, **params)
 
-
     @property
     def identifier(self) -> UUID:
         return self.__identifier
@@ -48,7 +47,6 @@ class Player(Serializable):
             self.__identifier = value
         else:
             raise ValueError()
-
 
     @property
     def last_name(self) -> str:
