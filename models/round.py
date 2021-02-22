@@ -10,7 +10,7 @@ class Round(Serializable):
     """ Class of a model round
 
         Daughter of the Serializable class. Initiate a list of property to serialize. Property and
-        Setter decorators for each property to prevent the user from directly accessing the variables.
+        Setter decorators for each property to verify the user input is matching what the program expects.
         methodname_pod version used to serialize, converting the variable type into str.
 
         Parameters:

@@ -18,7 +18,8 @@ class MenuView:
     """
     def __init__(self):
         self.utils = utl.Utils()
-        self.menu_choices = ["Créer un joueur", "Créer un tournoi", "Rapport", "Quitter"]
+        self.menu_choices = ["Créer un joueur", "Créer un tournoi", "Modifier le classement d'un joueur",
+                             "Rapport", "Quitter"]
         self.report_choices = ["Joueurs", "Tournois"]
         self.players_choices = ["Afficher tous les joueurs", "Afficher les joueurs d'un tournoi"]
         self.tournament_choices = ["Afficher tous les tournois", "Afficher les détails d'un tournoi"]

@@ -1,5 +1,5 @@
 """This module contains the management of the players"""
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 
 from models.player import Player
 
@@ -40,6 +40,12 @@ class PlayerManager:
         table = db.table('players')
         for item in table:
             self.create_player(item)
+
+    def modify_player_rank_in_db(self, player_id, new_rank):
+        db = TinyDB('database.json')
+        table = db.table('players')
+        Identifier = Query()
+        table.update({'rank': new_rank}, Identifier.identifier == player_id)
 
 
 player_manager = PlayerManager()

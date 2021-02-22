@@ -32,6 +32,13 @@ class Controller:
                 tournament_manager.save_tournament_in_db()
 
             elif menu_creation.user_choice == menu_creation.menu_choices[2]:
+                while True:
+                    player_creation.ask_rank_modification()
+                    player_manager.save_player_in_db()
+                    if player_creation.redo != player_creation.redo_choices[0]:
+                        break
+
+            elif menu_creation.user_choice == menu_creation.menu_choices[3]:
                 menu_creation.display_report_choice()
 
                 if menu_creation.user_choice == menu_creation.report_choices[0]:

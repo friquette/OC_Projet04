@@ -72,5 +72,21 @@ class PlayerView:
                   f"Genre: {player[1]['gender']}, "
                   f"Classement: {player[1]['rank']}")
 
+    def ask_rank_modification(self):
+        player_id = self.utils.ask_identifier("Entrez l'ID du joueur à modifier: ")
+        player_to_modify = player_manager.find_player_by_id(player_id)
+        print(f"ID: {player_to_modify['identifier']}, "
+                  f"Nom: {player_to_modify['last_name']}, "
+                  f"Prenom: {player_to_modify['first_name']}, "
+                  f"Date de naissance: {player_to_modify['birthdate']}, "
+                  f"Genre: {player_to_modify['gender']}, "
+                  f"Classement: {player_to_modify['rank']} \n")
+
+        new_rank = self.utils.ask_int("Nouveau classement: ")
+        player_manager.modify_player_rank_in_db(player_id, new_rank)
+
+        print("Voulez vous modifier le classement d'un autre joueur ?")
+        self.redo = self.utils.ask_choices(self.redo_choices)
+
 
 player_creation = PlayerView()
