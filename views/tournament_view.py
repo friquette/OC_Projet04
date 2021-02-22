@@ -131,18 +131,24 @@ class TournamentView:
             print("")
 
     def display_players_in_tournament(self):
-        self.user_choice = self.utils.ask_tournament_identifier("Entrez l'id d'un tournoi (format:lieuAAAA-MM-JJ): ")
-        selected_tournament = tournament_manager.find_tournament_by_id(self.user_choice)
-        sorted_players = sorted(selected_tournament['players'], key=lambda player: (player['last_name'],
-                                                                                    player['first_name']))
+        while True:
+            user_choice = self.utils.ask_tournament_identifier("Entrez l'id d'un tournoi (format:lieuAAAA-MM-JJ): ")
+            selected_tournament = tournament_manager.find_tournament_by_id(user_choice)
+            if selected_tournament is None:
+                print("Ce tournoi n'existe pas.")
+                continue
+            else:
+                sorted_players = sorted(selected_tournament['players'], key=lambda player: (player['last_name'],
+                                                                                            player['first_name']))
 
-        for player in sorted_players:
-            print(f"ID: {player['identifier']}, "
-                  f"Nom: {player['last_name']}, "
-                  f"Prenom: {player['first_name']}, "
-                  f"Date de naissance: {player['birthdate']}, "
-                  f"Genre: {player['gender']}, "
-                  f"Classement: {player['rank']}")
+                for player in sorted_players:
+                    print(f"ID: {player['identifier']}, "
+                          f"Nom: {player['last_name']}, "
+                          f"Prenom: {player['first_name']}, "
+                          f"Date de naissance: {player['birthdate']}, "
+                          f"Genre: {player['gender']}, "
+                          f"Classement: {player['rank']}")
+                break
 
 
 tournament_creation = TournamentView()

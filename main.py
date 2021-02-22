@@ -15,9 +15,9 @@ class Controller:
 
     """
     def get_user_choice(self):
-        player_manager.load_player_from_db()
-        tournament_manager.load_tournament_from_db()
         while True:
+            player_manager.load_player_from_db()
+            tournament_manager.load_tournament_from_db()
             menu_creation.display_menu()
 
             if menu_creation.user_choice == menu_creation.menu_choices[0]:
