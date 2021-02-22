@@ -1,7 +1,7 @@
 # OC_Projet_04
 Développez un programme logiciel en Python
 
-##Set up the project
+## Set up the project
 This project runs in python 3
 
 Make a copy of this project on your hard drive <br>
@@ -18,7 +18,7 @@ Activate your virtual environment <br>
 Install the packages <br>
 `pip install -r requirements.txt`
 
-##How to use it
+## How to use it
 Simply execute the main.py file.</br>
 `python ct_manager.py` </br>
 
@@ -27,7 +27,7 @@ is named database.json. </br>
 In the database, the players are saved under the table 'players' and
 the tournaments are saved under the table 'tournaments'.
 
-##Generate a flake8 report
+## Generate a flake8 report
 Simply enter the following command: </br>
 `flake8`
 
